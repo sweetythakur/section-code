@@ -1,0 +1,58 @@
+  <div class="contact">
+        {%- if section.settings.title != blank -%}
+            <h5 class="footer-item__title h4">{{ section.settings.title }}</h5>
+          {%- endif -%}
+          
+         <div class="contact__details-content rte">
+                    
+                    <ul class="contact-info">
+<li>
+{%- if section.settings.location != blank -%}
+<div class="location">
+<i class="fa fa-map-marker"></i>{{section.settings.location}}
+</div>
+{%- endif -%}
+</li>
+<li>
+{%- if section.settings.email != blank -%}
+                   <div class="location">
+                     <i class="fa fa-envelope" aria-hidden="true"></i>{{section.settings.email}}
+  </div>
+                         {%- endif -%} 
+<li> 
+<li>
+{%- if section.settings.phone != blank -%}
+                   <div class="location">
+				   <i class="fa fa-phone" aria-hidden="true"></i>{{section.settings.phone}}</div>
+                         {%- endif -%} 
+</li>
+</ul>
+                    
+                       </div>   
+
+        </div>
+		
+		
+		{
+        "type": "text",
+        "id": "title_heading",
+        "label": "Heading"
+      },
+        {
+          "type": "richtext",
+          "id": "location",
+          "default": "<p> 6767 S. South Chicago Ave.</p>",
+          "label": "Address"
+        },
+               {
+          "type": "richtext",
+          "id": "email",
+          "default": "<mailto:p>support@gmail.com</p>",
+          "label": "Eamil"
+        },
+  {
+          "type": "richtext",
+          "id": "phone",
+          "default": "<p>773-675-5295</p>",
+          "label": "Phone"
+        }

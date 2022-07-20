@@ -1,0 +1,58 @@
+<div class="collec_category">
+  
+  <h2>Categories</h2>
+  
+  
+  <div class="col_navi">
+    {% for link in linklists.categories.links %}
+    
+     {% if link.links == blank %}
+    
+    <div class="single_category no_accordion_side">
+     
+      <a class="single_c_link" href="{{ link.url }}">{{ link.title }}</a>
+      
+    </div>
+    
+    {% else %}
+      
+    <div class="single_category accordion_side">
+            
+      <span class="accordion_heading active ">{{ link.title }}</span>
+      
+      <div class="panel">
+        <ul>
+        {% for childlink in link.links %}
+          <li>
+          	<a class="sub_link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      
+    </div>
+      {% endif %}
+    {% endfor %}
+      
+  </div>
+  
+</div>
+
+
+<script>
+  
+var acc = document.getElementsByClassName("accordion_heading");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>

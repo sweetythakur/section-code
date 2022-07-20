@@ -1,0 +1,17 @@
+{% for c in product.collections %}
+{% assign check_coll = c.handle%}
+{% if check_coll == 'shop-rings'%}
+<img src="https://cdn.shopify.com/s/files/1/0587/0554/3304/files/ruler.png?v=1657521917">
+<button class="accordion">Size chart</button>
+<div class="panel">                 
+{%- for p in pages -%}
+{%assign p_handle = p.handle%}
+
+{% if p_handle == 'size'%}
+   {{p.content}}
+{%endif%}
+
+    {%- endfor -%}
+  </div>
+{%endif%}
+  {% endfor %}

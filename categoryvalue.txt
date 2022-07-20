@@ -1,0 +1,11 @@
+
+	
+	{% for collection in product.collections %}
+	
+	{{ collection.title }}
+	
+	{% endfor %}
+	
+	{% assign  collection = product.collections[0] %}
+	
+	{{ collection .title }}

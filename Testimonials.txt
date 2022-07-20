@@ -1,0 +1,281 @@
+<div class="page-width">
+<section data-section-id="{{ section.id }}"   data-section-type="testimonials" class="{{section.settings.class}} testimonail">
+<div class="image-item">
+<h2>{{ section.settings.title }}</h2>
+
+
+<div class="responsive2">
+
+ {%- for block in section.blocks -%}
+<div class="item" role="list">
+
+<div class="text_image">
+
+    <img class="right-col-img" src="{{section.settings.image1 | img_url : '100x'}}">
+  </div>
+    <blockquote>
+      {%- if block.settings.quote != blank -%}
+        <p>
+          {{ block.settings.quote }}
+        </p>
+      {%- endif -%}
+    </blockquote>
+
+        
+    {%- if block.settings.author != blank -%}
+      <cite>
+        <a href="{{ block.settings.link }}">
+          {{ block.settings.author }}
+        </a>
+      </cite>
+</div>
+    {%- endif -%}
+  {%- endfor -%}
+  </div>
+</section>
+</div>
+</div>
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "index-section",
+  "max_blocks": 8,
+  "settings": [
+{
+      "type": "image_picker",
+      "id": "image1",
+      "label": "t:sections.image-with-text.settings.image.label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Testimonials"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+  {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Text",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Author’s name"
+        },
+        {
+    "type": "url",
+          "id": "link",
+          "label": "link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+
+
+
+<section data-section-id="{{ section.id }}"   data-section-type="testimonials" class="  {{section.settings.class}} testimonail">
+<div class="grid grid--1-col grid--2-col grid--2-col-tablet contact-main-form page-width">
+<div class="grid__item  first-col-contact responsive">
+
+
+ {%- for block in section.blocks -%}
+ 
+
+    <blockquote>
+      {%- if block.settings.image1 != blank -%}
+<div class="text_image">
+<img class="right-col-img" src="{{block.settings.image1 | img_url : '100x'}}">
+</div>
+
+ 
+      {%- endif -%}
+    </blockquote>
+{%- endfor -%}
+</div>
+<div class="grid__item  second-col-contact responsive1">
+ {%- for block in section.blocks -%}
+{%- if block.settings.title != blank -%}
+<div class="contact__details-content rte">
+ <h2>{{ block.settings.title }}</h2>
+        <p>
+          {{ block.settings.quote }}
+        </p>
+</div>
+ {%- endif -%} 
+{%- endfor -%}
+ 
+    </div>
+</div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": "slider image text",
+  "class": "index-section",
+  "max_blocks": 8,
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+     
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "slider image",
+      "settings": [
+{
+      "type": "image_picker",
+      "id": "image1",
+      "label": "t:sections.image-with-text.settings.image.label"
+    },
+{
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "heading"
+    },
+  {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Text",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        
+        {
+    "type": "url",
+          "id": "link",
+          "label": "link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "slider image text",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+asNavfor=====================
+$(document).ready(function(){
+setTimeout(function(){
+$('.responsive').slick({
+  dots: false,
+  infinite: false,
+   asNavFor: '.responsive1',
+  speed: 300,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+   
+  ]
+});
+}, 1500);
+setTimeout(function(){
+$('.responsive1').slick({
+  dots: false,
+  infinite: false,
+   asNavFor: '.responsive',
+  speed: 300,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+   
+  ]
+});
+}, 1500);
+});

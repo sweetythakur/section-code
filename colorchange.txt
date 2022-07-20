@@ -1,0 +1,4 @@
+style="background-color: {{ value | split: ' ' | last | handle }} !important; background-image: url({{ value | handle | append: '.png' | asset_url }})"
+
+
+add this code in lable

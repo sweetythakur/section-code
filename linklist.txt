@@ -1,0 +1,27 @@
+ <ul class="multicolumn-list contains-content-container grid grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if section.settings.columns_desktop == 1 %} grid--full-width{% else %} grid--{{ section.settings.columns_desktop }}-col-desktop{% endif %}{% if show_mobile_slider %} slider slider--mobile grid--peek{% endif %} product-slider"
+        id="Slider-{{ section.id }}"
+        role="list"
+      >
+	  
+	  
+	  <div class="top-bar-left">
+  
+{% for link in linklists.top-menu.links %}
+  <li><a href= "{{ link.url }}">{{ link.title }}</a></li>
+{% endfor %}
+
+</div>
+
+
+<div class="colection-menu-bar-section">
+            <h2>{{ section.settings.sidebarmenu_link }}</h2>
+            <ul>
+              
+              {% for link in section.settings.sidebarmenu_link.links %}
+              	<li><a href= "{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+		  
+		  
+		  

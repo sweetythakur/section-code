@@ -1,0 +1,22 @@
+Today' Projects
+--------------
+1.Michelle Wallace
+2.Crystal White
+Autumn and Winter  plus Size Women＇s Clothes Casual Skirt Suit Two-Piece Set (with Pocket)
+Autumn  New  plus Size Women Clothes Lace-up off-Shoulder Jumpsuit
+Clothing Spring New Color Matching Fashion Sexy plus Size Fashion Casual Set
+
+{{ section.settings.title | handle }}
+{{section.settings.class}}
+{
+      "type": "text",
+      "id": "class",
+      "label": "Custom class"
+    },
+	
+	 1.Third attachment, please take off at the bottom where it says “My Personal Data"
+Reply:I have removed "My Personal".
+https://prnt.sc/jxW__pYcwerF
+
+2.We only need one of these selections… please correct.
+Reply:Ok, I have to fixed on section.

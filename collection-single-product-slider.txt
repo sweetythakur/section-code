@@ -1,0 +1,56 @@
+{% for image in product.images %} 
+      
+      {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+     
+<div class="image_get" data-image="{{ image | img_url: 'orignal'}}">
+        <img 
+              class="grid-view- lazyload"
+              alt="{{ preview_image.alt }}"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+              data-aspectratio="{{ preview_image.aspect_ratio }}"
+              data-sizes="auto"
+              data-image>
+  </div>
+{% endfor %}
+
+
+
+
+
+$(document).ready(function(){
+
+$('.multiple-items').slick({
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1
+});
+  
+  
+  $('.colorlist li').click(function(){
+    
+    var imag = $(this).attr('data-img');
+    
+    console.log(imag);
+    
+    $('.multiple-items .slick-slide').each(function(){
+      
+      
+      var slick_image = $(this).find('.image_get').attr('data-image'),
+          index = $(this).attr('data-slick-index');
+      
+      
+      if(slick_image == imag){
+       
+        $('.multiple-items').slick('slickGoTo', index);
+       
+      }
+      
+      
+    });
+    
+  });
+  
+			
+});

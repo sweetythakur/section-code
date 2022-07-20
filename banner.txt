@@ -1,0 +1,86 @@
+{% if section.settings.image != blank %} 
+<div class="hero-banner">
+  <div class="img-banner">
+    <img src="{{section.settings.image | img_url : '1600x'}}">
+  </div>
+  
+  {{product.title}}
+  {%include 'breadcrumbs'%}
+  
+  </div>
+{%endif%}
+{
+      "type": "image_picker",
+      "id": "image",
+      "label": "image"
+    },
+	
+	
+	
+	
+	
+	
+	add to banner image all pages
+	
+	{% if section.settings.image != blank %} 
+<div class="hero-banner">
+  <div class="img-banner">
+    <img src="{{section.settings.image | img_url : '1600x'}}">
+  </div>
+  <h1 class="title">{{ page.title }}</h1>
+ <h1 class="title">{{About.tittle}}</h1>
+<h1 class="title">{{contact.tittle}}</h1>
+<h1 class="title">{{ collection.title | escape }}</h1>
+
+
+
+
+  {%include 'breadcrumbs'%}
+  
+  </div>
+{% else %}
+  {{ shop.name }}
+{%endif%}
+
+
+{% schema %}
+  {
+    "name": "Banner",
+    "settings": [
+{
+      "type": "image_picker",
+      "id": "image",
+      "label": "image"
+    }
+
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+	
+	
+	
+	https://my-company-b9787.myshopify.com/admin/themes
+	
+	
+	Cherished Girl Follow The Son Acrylic Tumbler
+	Cherished Girl Flip Flops Acrylic Tumbler
+	Cherished Girl Trust In The Lord Acrylic Tumbler
+	
+	
+	
+	<div class="hero-banner ">
+  <div class="img-banner">
+    <img src="{{section.settings.image | img_url : '1600x'}}">
+  </div>
+  
+  {{about.title}}
+  {%include 'breadcrumbs'%}
+  
+  </div>

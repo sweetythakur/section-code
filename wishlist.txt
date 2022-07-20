@@ -1,0 +1,345 @@
+wishlist app
+
+   <!-- Swym button on product pages -->                  
+  <button data-swaction="addToWishlist" data-product-id="{{product.id | json}}">
+   <svg version="1.1" xmlns="https://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+   <path d="M47.199 4c-6.727 0-12.516 5.472-15.198 11.188-2.684-5.715-8.474-11.188-15.201-11.188-9.274 0-16.8 7.527-16.8 16.802 0 18.865 19.031 23.812 32.001 42.464 12.26-18.536 31.999-24.2 31.999-42.464 0-9.274-7.527-16.802-16.801-16.802z" fill="#000"></path>
+   </svg>     
+ </button>
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+ <!-- wishlist files theme liquid -->
+      {% include "swymWishlist" %}
+      {% include "swymSnippet" %}
+      {% include 'swym-product-view' %}
+      {% include 'swym-custom' %}
+        {% include 'wishlist' %}
+      <!-- wishlist files end-->
+
+--------------------------------------swymWishlist snippet------------------------------------
+
+<script>
+  var wishlistButton = document.querySelector(".wishlist-btn");
+  
+  function swymCallbackFn(){    
+    if(wishlistButton){
+      _swat.fetchWrtEventTypeET(fetchCallbackFn, 4);       
+      // fetching all wishlist events
+    }
+  }
+  
+  function fetchCallbackFn(products){
+    var activeProductId = SwymPageData.empi, 
+        activeVariantId = SwymPageData.epi;
+    var isInWishlist = products.find(function(p){
+      return p.empi == activeProductId && p.epi == activeVariantId;
+    });
+    if(isInWishlist){
+      wishlistButton.setAttribute("disabled", true);
+       var element = document.querySelector(".wishlist-btn");
+		element.classList.add("full_heart");
+	
+      wishlistButton.innerHTML = "<i class='fa fa-heart full_heart' aria-hidden='true'></i>";
+     	
+		wishlistButton.classList.add("full_heart");
+    } else {
+      wishlistButton.addEventListener("click", function(e){
+        if(SwymPageData){
+          SwymPageData.et = 4;	// et 4 stands for wishlist event type
+          _swat.addToWishList(SwymPageData, function(e){
+      wishlistButton.setAttribute("disabled", true);
+
+            wishlistButton.innerHTML = "<i class='fa fa-heart full_heart'></i>"; 
+        var element = document.querySelector(".wishlist-btn");
+		element.classList.add("full_heart");
+
+          });
+        }
+      });
+    }
+  }
+  if(!window.SwymCallbacks){
+   window.SwymCallbacks = [];
+  }
+  window.SwymCallbacks.push(swymCallbackFn);
+</script>
+------------------------------------------swymSnippet--------------------------------------
+{% comment %}
+<!-- DO NOT EDIT!! - Auto generated file->
+<!-- To add modifications, create a separate file and include in theme.liquid after {% include swymSnippet %}-->
+{% endcomment %}
+<link rel="dns-prefetch" href="https://swymstore-v3free-01.swymrelay.com" crossorigin>
+<link rel="dns-prefetch" href="//swymv3free-01.azureedge.net/code/swym-shopify.js">
+<link rel="preconnect" href="//swymv3free-01.azureedge.net/code/swym-shopify.js">
+<script id="swym-snippet">
+  window.swymLandingURL = document.URL;
+  window.swymCart = {{ cart | json }};
+  window.swymPageLoad = function(){
+    window.SwymProductVariants = window.SwymProductVariants || {};
+    window.SwymHasCartItems = {{cart.item_count|json}} > 0;
+    window.SwymPageData = {}, window.SwymProductInfo = {};
+    {%- if product and template.name == 'product' -%}
+    var variants = [];
+    window.SwymProductInfo.product = {{ product | json }};
+    window.SwymProductInfo.variants = window.SwymProductInfo.product.variants;
+    var piu = {{ product.featured_image | img_url: '620x620' | json }};
+    {% if product.selected_or_first_available_variant %}
+    {% assign currentVariant = product.selected_or_first_available_variant%}
+    {% else %}
+    {% assign currentVariant = product.variants[0] %}
+    {%- endif -%}
+    {%- for variant in product.variants -%}
+      {% if variant.selected %}
+        {% assign currentVariant = variant %}
+      {% endif %}
+      SwymProductVariants[{{variant.id|json}}] = {
+        empi:window.SwymProductInfo.product.id,epi:{{variant.id|json}},
+        dt: {{ product.title | json }},
+        du: "{{ shop.url }}{{ product.url }}",
+        iu: {% if variant.image %} {{ variant | img_url: '620x620' | json }} {% else %} piu {% endif %},
+        stk: {{variant.inventory_quantity}},
+        pr: {{variant.price}}/100,
+        ct: window.SwymProductInfo.product.type,
+        {% if variant.compare_at_price %} op: {{variant.compare_at_price}}/100, {% endif %}
+        variants: [{ {{ variant.title | json }} : {{variant.id|json}}}]
+      };
+    {%- endfor -%}
+    window.SwymProductInfo.currentVariant = {{currentVariant.id | json}};
+    var product_data = {
+      et: 1, empi: window.SwymProductInfo.product.id, epi: window.SwymProductInfo.currentVariant,
+      dt: {{ product.title | json }}, du: "{{ shop.url }}{{ product.url }}",
+      ct: window.SwymProductInfo.product.type, pr: {{ currentVariant.price }}/100,
+      iu: {% if currentVariant.image %} {{ currentVariant | img_url: '620x620' | json }} {% else %} piu {% endif %}, variants: [{ {{currentVariant.title | json}} : {{currentVariant.id | json}} }],
+      stk:{{ currentVariant.inventory_quantity }} {% if currentVariant.compare_at_price %} ,op:{{currentVariant.compare_at_price}}/100 {% endif %}
+    };
+    window.SwymPageData = product_data;
+    {% elsif collection %}
+    var collection = {{ collection | json }};
+    if (typeof collection === "undefined" || collection == null || collection.toString().trim() == ""){
+      var unknown = {et: 0};
+      window.SwymPageData = unknown;
+    }else{
+      var image = "";
+      if (typeof collection.image === "undefined" || collection.image == null || collection.image.toString().trim() == ""){}
+      else{image = collection.image.src;}
+      var collection_data = {
+        et: 2, dt: {{ collection.title | json}},
+        du: "{{shop.url}}/collections/{{collection.handle}}", iu: image
+      }
+      window.SwymPageData = collection_data;
+    }
+    {% else %}
+    var unknown = {et: 0};
+    window.SwymPageData = unknown;
+    {% endif %}
+    window.SwymPageData.uri = window.swymLandingURL;
+  };
+
+  if(window.selectCallback){
+    (function(){
+      // Variant select override
+      var originalSelectCallback = window.selectCallback;
+      window.selectCallback = function(variant){
+        originalSelectCallback.apply(this, arguments);
+        try{
+          if(window.triggerSwymVariantEvent){
+            window.triggerSwymVariantEvent(variant.id);
+          }
+        }catch(err){
+          console.warn("Swym selectCallback", err);
+        }
+      };
+    })();
+  }
+  window.swymCustomerId = {% if customer %}"{{ customer.id }}"{% else %}null{% endif %};
+  window.swymCustomerExtraCheck = {% if customer and customer.tags.size > 0 %}true{% else %}null{% endif %};
+
+  var swappName = ({{ shop.metafields.swym.app | json }} || "Wishlist");
+  var swymJSObject = {
+    pid: {{ shop.metafields.swym.pid | json }} || "2+wkxGqV2VkNiK096PXA4y71lMUjhs3MC6jcHbZ99Ig=",
+    interface: "/apps/swym" + swappName + "/interfaces/interfaceStore.php?appname=" + swappName
+  };
+  window.swymJSShopifyLoad = function(){
+    if(window.swymPageLoad) swymPageLoad();
+    if(!window._swat) {
+      (function (s, w, r, e, l, a, y) {
+        r['SwymRetailerConfig'] = s;
+        r[s] = r[s] || function (k, v) {
+          r[s][k] = v;
+        };
+      })('_swrc', '', window);
+      _swrc('RetailerId', swymJSObject.pid);
+      _swrc('Callback', function(){initSwymShopify();});
+    }else if(window._swat.postLoader){
+      _swrc = window._swat.postLoader;
+      _swrc('RetailerId', swymJSObject.pid);
+      _swrc('Callback', function(){initSwymShopify();});
+    }else{
+      initSwymShopify();
+    }
+  }
+  if(!window._SwymPreventAutoLoad) {
+    swymJSShopifyLoad();
+  }
+  window.swymGetCartCookies = function(){
+    var RequiredCookies = ["cart", "swym-session-id", "swym-swymRegid", "swym-email"];
+    var reqdCookies = {};
+    RequiredCookies.forEach(function(k){
+      reqdCookies[k] = _swat.storage.getRaw(k);
+    });
+    var cart_token = window.swymCart.token;
+    var data = {
+        action:'cart',
+        token:cart_token,
+        cookies:reqdCookies
+    };
+    return data;
+  }
+
+  window.swymGetCustomerData = function(){
+    {% if customer %}
+    var regid = _swat.get(_swat.key.REGID);
+    var swym_session_id = _swat.storage.getSessionId();
+    var customer_id = "{{ customer.id }}";
+    var data = {action: 'customer', regid:regid, customer_id:customer_id,swym_session_id:swym_session_id};
+    return {status:0,data:data};
+    {% else %}
+    return {status:1};
+    {% endif %}
+  }
+</script>
+{% if customer %}
+<script id="swym-wrap-login-handler">
+window.SwymCallbacks = window.SwymCallbacks || [];
+window.SwymCallbacks.push(function(swat) {
+  if(swat.isAlreadyAuth()) {
+    var postLoginRedirect = swat.storage.get(swat.key.POSTLOGINRD);
+    if(postLoginRedirect && postLoginRedirect != window.location) {
+      swat.storage.remove(swat.key.POSTLOGINRD);
+      window.location = postLoginRedirect;
+    }
+  }
+});
+</script>
+{% endif %}
+<style id="safari-flasher-pre"></style>
+<script>
+  if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+    document.getElementById("safari-flasher-pre").innerHTML = ''
+      + '#swym-plugin,#swym-hosted-plugin{display: none;}'
+      + '.swym-button.swym-add-to-wishlist{display: none;}'
+      + '.swym-button.swym-add-to-watchlist{display: none;}'
+      + '#swym-plugin  #swym-notepad, #swym-hosted-plugin  #swym-notepad{opacity: 0; visibility: hidden;}'
+      + '#swym-plugin  #swym-notepad, #swym-plugin  #swym-overlay, #swym-plugin  #swym-notification,'
+      + '#swym-hosted-plugin  #swym-notepad, #swym-hosted-plugin  #swym-overlay, #swym-hosted-plugin  #swym-notification'
+      + '{-webkit-transition: none; transition: none;}'
+      + '';
+    window.SwymCallbacks = window.SwymCallbacks || [];
+    window.SwymCallbacks.push(function(tracker){
+      tracker.evtLayer.addEventListener(tracker.JSEvents.configLoaded, function(){
+        // flash-preventer
+        var x = function(){
+          SwymUtils.onDOMReady(function() {
+            var d = document.createElement("div");
+            d.innerHTML = "<style id='safari-flasher-post'>"
+              + "#swym-plugin:not(.swym-ready),#swym-hosted-plugin:not(.swym-ready){display: none;}"
+              + ".swym-button.swym-add-to-wishlist:not(.swym-loaded){display: none;}"
+              + ".swym-button.swym-add-to-watchlist:not(.swym-loaded){display: none;}"
+              + "#swym-plugin.swym-ready  #swym-notepad, #swym-plugin.swym-ready  #swym-overlay, #swym-plugin.swym-ready  #swym-notification,"
+              + "#swym-hosted-plugin.swym-ready  #swym-notepad, #swym-hosted-plugin.swym-ready  #swym-overlay, #swym-hosted-plugin.swym-ready  #swym-notification"
+              + "{-webkit-transition: opacity 0.3s, visibility 0.3ms, -webkit-transform 0.3ms !important;-moz-transition: opacity 0.3s, visibility 0.3ms, -moz-transform 0.3ms !important;-ms-transition: opacity 0.3s, visibility 0.3ms, -ms-transform 0.3ms !important;-o-transition: opacity 0.3s, visibility 0.3ms, -o-transform 0.3ms !important;transition: opacity 0.3s, visibility 0.3ms, transform 0.3ms !important;}"
+              + "</style>";
+            document.head.appendChild(d);
+          });
+        };
+        setTimeout(x, 10);
+      });
+    });
+  }
+</script>
+<style id="swym-product-view-defaults">
+  / Hide when not loaded /
+  .swym-button.swym-add-to-wishlist-view-product:not(.swym-loaded){
+    display: none;
+  }
+</style>
+------------------------------------------swym-product-view---------------------------------
+{% comment %}
+<!-- DO NOT EDIT!! - Auto generated file->
+<!-- To add modifications, create a separate file and include in theme.liquid after {% include swymSnippet %}-->
+{% endcomment %}
+{%- if product -%}
+<script class="swym-product-view-snippet">
+['SwymViewProducts', 'SwymWatchProducts', 'SwymProductVariants'].forEach(function(k){
+  if(!window[k]) window[k] = {};
+});
+(function(et){
+    var collections = {{product.type | json}};
+    var o={}, empi={{ product.id | json }},
+    piu = {{ product.featured_image | img_url: '620x620' | json }};
+    {% assign currentVariant = product.variants[0] %}
+    {% for variant in product.variants %}
+    {% if variant.selected %}
+    {% assign currentVariant = variant %}
+    {% endif %}
+    SwymProductVariants[{{variant.id|json}}] = {
+      empi:empi,epi:{{variant.id|json}},
+      du:"{{ shop.url }}{{ product.url }}",
+      dt:{{ product.title | json }},
+      ct: collections,
+      iu: {% if variant.image %} {{ variant | img_url: '620x620' | json }} {% else %} piu {% endif %},
+      stk: {{variant.inventory_quantity}},
+      pr: {{ variant.price }}/100,
+      {% if variant.compare_at_price %} op: {{variant.compare_at_price}}/100, {% endif %}
+      variants: [{ {{ variant.title | json }} : {{variant.id|json}}}]
+    };
+    SwymWatchProducts[{{variant.id | json}}] = o[{{variant.id | json}}] = {"id": {{variant.id | json}}, "available": {{variant.available | json}},"inventory_management": {{variant.inventory_management | json}},"inventory_quantity": {{variant.inventory_quantity | json}},"title": {{variant.title | json}}, "inventory_policy": {{variant.inventory_policy | json}}};
+    {% endfor %}
+    var product_data = {
+      empi:empi, epi:{{ currentVariant.id }},
+      dt	:{{ product.title | json }},du:"{{ shop.url }}{{ product.url }}",
+      ct 	:collections,pr:{{ currentVariant.price }}/100,stk:{{ currentVariant.inventory_quantity }},
+      iu	:{% if currentVariant.image %} {{ currentVariant | img_url: '620x620' | json }} {% else %} piu {% endif %},variants:[{ {{currentVariant.title | json}} : {{currentVariant.id | json}} }]
+      {% if currentVariant.compare_at_price %} ,op:{{currentVariant.compare_at_price}}/100 {% endif %}
+    };
+    SwymViewProducts[{{product.handle | json}}] = SwymViewProducts[{{product.id | json}}] = product_data;
+    SwymWatchProducts[{{product.handle | json}}] = SwymWatchProducts[{{product.id | json}}] = o;
+  })();
+
+</script>
+{%- endif -%}
+---------------------------------------swym-custom snippet-------------------------------------------------------------------------------
+<script defer>
+  function swymCallbackFn(swat){
+    // your API calls go here
+    document.addEventListener("swym:collections-loaded", function(){
+      swat.initializeActionButtons("span#wislist_homepage");
+    })
+  }
+
+
+  if(!window.SwymCallbacks){
+    window.SwymCallbacks = [];
+  }
+  window.SwymCallbacks.push(swymCallbackFn);
+
+</script>
+=======snippet wishlist------------------------------------
+<script class="swym-wishlist-header-counter-custom">
+function renderWishlistCounter(swat) {
+	var counter_elem = document.querySelectorAll(".swym-wishlist-header-counter"); /* Custom header can be added here.*/
+	if (counter_elem) {
+		for (var i = 0; i < counter_elem.length; i++) {
+			if (swat.renderWishlistCount) {
+				swat.renderWishlistCount(counter_elem[i], function(count, element) {
+					console.log("debug - renderWishlistCount", count, element); 
+				});
+			}
+		}
+	}
+}
+if (!window.SwymCallbacks) {
+	window.SwymCallbacks = [];
+}
+window.SwymCallbacks.push(renderWishlistCounter);
+</script>
+

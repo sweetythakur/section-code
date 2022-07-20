@@ -1,0 +1,809 @@
+mega menu/////////////////
+
+
+
+{% include 'cart-drower2'%}
+  {% include 'cart-drower3'%}
+<button class="bottom-to-top">
+  <i class="fa fa-arrow-up"></i>
+</button>
+<style>
+  {% if section.settings.logo != blank %}
+  .site-header__logo-image {
+    max-width: {{ section.settings.logo_max_width }}px;
+  }
+  {% endif %}
+</style>
+<div data-section-id="{{ section.id }}" data-section-type="header-section" class="header-main-div">
+  {% include 'cart-drower'%}
+  {% if section.settings.show %}
+  <div class="announcement-bar " id="id">
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-6" style="display:flex;">
+          <!--       </div>
+<div class="col-md-2">  -->
+          <div class="language-select">
+            {% include 'gtranslate' %}  
+          </div>
+          <div class="language-currency"> 
+            {% include 'currency-picker' %} 
+          </div>
+
+          <!--           <div class="language-select">
+
+</div> -->
+        </div>
+        <div class="col-md-6"> 
+          <div class="header-icon">
+            <ul>
+              {% if section.settings.show_account %}
+              <li class="icon-he" style="display:block;"><a href="/account/register"><p class="account"><i class="fa fa-user user-icon"></i>Create an Account</p></a></li>
+              {% endif%} 
+              {% if section.settings.show_signup %}
+              <li class="icon-he" style="display:block;"><a href="#"><p class="sign"><i class="fa fa-sign-in user-icon"></i>Sign In<i class="fa fa-angle-down"></i></p></a></li>        
+              {% endif%} 
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="signup-form">
+            <div>
+              <div id="CustomerLoginForm">
+                {% form 'customer_login' %}
+
+                {{ form.errors | default_errors }}
+
+<!--                 <label for="customer_email">Email Address</label> -->
+                <input type="email" name="customer[email]" class="Email input" placeholder="Email"/>
+
+<!--                 <label for="customer_password">Password</label> -->
+                <input type="password" name="customer[password]" class="password input" placeholder="Password"  />
+
+                <input type="submit" value="Sign In" class="login-button" />
+                <div class="forget-password">
+                  <a href="/account/login#recover">Forgot Your Password?
+                  </a>
+              </div>
+                {% endform %}
+
+              </div>
+              
+              
+              {% comment}
+              {% form 'customer_login' %}
+              {{ form.errors | default_errors }}
+<!--               <label for="customer_email">Email Address</label> -->
+              <input type="email" name="customer[email]" class="Email input" placeholder="Email"/><br>
+<!--               <label for="customer_password">Password</label> -->
+              <input type="password" name="customer[password]" class="password input" placeholder="Password" /><br>
+              <input type="submit" value="LOGIN" class="login-button" />
+              <div class="forget-password">
+                <a href="#recover">Forgot Your Password?
+                </a>
+              </div>
+              {% endform %}
+              {% endcomment%}
+<!--               <form action="#">
+                <input type="text" name="Email" class="Email input" placeholder="Email"><br>
+                <input type="text" name="password" class="password input" placeholder="Password"><br>
+                <button class="login-button">LOGIN</button>
+                <div class="forget-password">
+                  <a href="#">Forgot Your Password?</a></div>
+              </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  {% endif %}
+  <div class="header-class">
+    <div class="container"> 
+      <header role="banner">
+        <div class="row ro-class">
+          <div class="col-md-6">
+            <div class="logo-img">
+              {% if template.name == 'index' %}
+              <h1 itemscope itemtype="http://schema.org/Organization">
+                {% else %}
+                <div class="h1" itemscope itemtype="http://schema.org/Organization">
+                  {% endif %}
+                  <a href="/" itemprop="url" class="site-logo{% if section.settings.logo != blank %} site-header__logo-image{% endif %}">
+                    {% if section.settings.logo != blank %}
+                    {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+                    <img src="{{ section.settings.logo | img_url: image_size }}"
+                         srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                         alt="{{ section.settings.logo.alt | default: shop.name }}"
+                         itemprop="logo">
+                    {% else %}
+                    {{ shop.name }}
+                    {% endif %}
+                  </a>
+                  {% if template.name == 'index' %}
+                  </h1>
+                {% else %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-6 crt">
+            <div class="cart-icon cartdrower3open">
+              <div style="position: relative;
+                          width: fit-content;
+                          display: inline-block;">
+                <a href="#" class="carticon">
+                <span class="itemcount">{{ cart.item_count }}</span>
+                <i class="fa fa-shopping-cart header-carticon"></i>
+              </a>
+              </div>
+              {% if cart.total_price != 0%}
+              <span id="total-price" style="font-size: 14px;
+                                            font-weight: 700;
+                                            padding: 10px;
+                                            ">{{ cart.total_price | money }}</span>
+              {% endif %}
+            </div>
+             
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
+  <div class="nav-div header" id="myHeader">
+    <div class="container">
+      <div class="row" id="add-ro">
+        <div class="col-md-8" >
+          <nav role="navigation" class="nav-menu navbar-expand-lg navbar-light bg-light">
+            <div class="mobile-hed" style="width:100%;">
+              <div style="width:25%;">
+                <button class="navbar-toggler left-btn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+                    <i class="fa fa-align-left"></i></span>
+                </button>
+              </div>
+
+              <div class="logo-img" style="width:75%;">
+                {% if template.name == 'index' %}
+                <h1 itemscope itemtype="http://schema.org/Organization">
+                  {% else %}
+                  <div class="h1" itemscope itemtype="http://schema.org/Organization">
+                    {% endif %}
+                    <a href="/" itemprop="url" class="hed-l site-logo{% if section.settings.logo != blank %} site-header__logo-image{% endif %}">
+                      {% if section.settings.logo != blank %}
+                      {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+                      <img src="{{ section.settings.logo | img_url: image_size }}"
+                           srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                           alt="{{ section.settings.logo.alt | default: shop.name }}"
+                           itemprop="logo">
+                      {% else %}
+                      {{ shop.name }}
+                      {% endif %}
+                    </a>
+                    {% if template.name == 'index' %}
+                    </h1>
+                  {% else %}
+                  </div>
+                {% endif %}
+                <div style="float:right;">
+                  <a href="#" class="carticon cartdrower3open">
+                    <span class="itemcount">{{ cart.item_count }}</span>
+                    <i class="fa fa-shopping-cart header-carticon"></i>
+                  </a>
+                </div>
+                <form action="/search" method="get" role="search" class="form">
+                  <label for="Search" class="label-hidden">
+                    {{ 'general.search.placeholder' | t }}
+                  </label>
+                  <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+                  <input type="search"
+                         name="q"
+                         id="Search" class="input-search ser"
+                         value="{{ search.terms | escape }}"
+                         placeholder="Search entire store here..." ><i class="fa fa-search h-icon" ></i>
+                </form> 
+              </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
+              <div class="header-tab">
+                <div class="menu-tab seeting-tab">
+                  <h5 class="tab1-heading">menu</h5>
+                  <div class="togl tab-div">
+                    <ul class="parant_nav navbar-nav mr-auto">
+                      {% for link in linklists[section.settings.main_linklist].links %}
+                      <li class="li-liste nav-item">
+                        {% if link.title == 'HOME' %}
+                        <i class="fa fa-home"></i>
+                        {% endif %}
+                        <a  class="nav-link" href="{{ link.url }}">{{ link.title | escape }}</a>                   
+                        <div class="second-menu-div">
+                          <ul class="menu2">
+                            {% for childlink in link.links %}
+                            {% if childlink.links != blank %}
+                            <li class="menu3 nav-item dropdown">
+                              <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                              {% if childlink.url != blank %}
+                              <i class="fa fa-angle-right" style="color:black;float: right;"></i>
+                              {% endif %}
+                              <div class="child3-div">
+                                <ul class="child3-menu">
+                                  {% for grandchildlink in childlink.links %}
+                                  <li>
+                                    <a href="{{ grandchildlink.url }}">{{ grandchildlink.title | escape }}</a>
+                                  </li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                            </li>
+                            {% else %}
+                            <li>
+                              <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                          </ul>
+                        </div>
+
+                        <div class="menu1">
+                          <div class="container">
+                            <div class="row">
+                              {%- assign main_menuname = link.title | downcase -%}
+                              {%- for block in section.blocks -%}
+
+                              {% case block.type %}
+                              {% when 'main-menu' %}
+                              {%- assign add_menuname1 = block.settings.menu_main | downcase -%}
+                              {%- if main_menuname == add_menuname1 -%}
+
+                              <div class="col-md-3">
+                                <ul class="mega-menu-ul">
+                                  <p>{{ block.settings.main_menu1 }}</p>
+                                  {% for link in linklists[block.settings.main_menu1].links %}  
+                                  <li class="mega-menu-li">
+                                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                  </li>    
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                              <div class="col-md-3">
+                                <ul class="mega-menu-ul">
+                                  <p>{{ block.settings.main_menu2 }}</p>
+                                  {% for link in linklists[block.settings.main_menu2].links %}  
+                                  <li class="mega-menu-li">
+                                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                  </li>    
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                              <div class="col-md-3">
+                                <ul class="mega-menu-ul">
+                                  <p>{{ block.settings.main_menu3 }}</p>
+                                  {% for link in linklists[block.settings.main_menu3].links %}  
+                                  <li class="mega-menu-li">
+                                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                  </li>    
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                              <div class="col-md-3">
+                                {% if block.settings.main_menuimg != blank%}
+                                <img src="{{ block.settings.main_menuimg | img_url: 'original' }}" alt="" class="slide_img im">
+                                {% endif%}
+                              </div>
+
+                              {%- endif -%}
+
+                              {% when 'icon' %}
+                              <div class="menu1">
+                                {%- assign add_menuname2 = block.settings.menu_name | downcase -%}
+                                {%- if main_menuname == add_menuname2 -%}
+                                <div class="col-md-3">
+                                  <ul class="mega-menu-ul">
+                                    {% if block.settings.look_book1 != blank%}
+                                    <img src="{{ block.settings.look_book1 | img_url: 'original' }}" alt="" class="slider_img im">
+                                    {% endif%}
+                                    <p>{{ block.settings.mega_menu }}</p>
+                                    {% for link in linklists[block.settings.mega_menu].links %}  
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                                <div class="col-md-3">
+                                  {% if block.settings.look_book2 != blank%}
+                                  <img src="{{ block.settings.look_book2 | img_url: 'original' }}" alt="" class="slider_img im">
+                                  {% endif%}       
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.mega_menu2 }}</p>
+                                    {% for link in linklists[block.settings.mega_menu2].links %}                 
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>               
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                                <div class="col-md-3">
+                                  {% if block.settings.look_book3 != blank%}
+                                  <img src="{{ block.settings.look_book3 | img_url: 'original' }}" alt="" class="slider_img im">
+                                  {% endif%}
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.mega_menu3 }}</p>
+                                    {% for link in linklists[block.settings.mega_menu3].links %}  
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+
+                                <div class="col-md-3">
+                                  {% if block.settings.mega_menuimg != blank%}
+                                  <img src="{{ block.settings.mega_menuimg | img_url: 'original' }}" alt="" class="slider_img im">
+                                  {% endif%}
+                                </div>
+                                {%- endif -%}
+                              </div>
+                              {% when 'menu' %}
+                              <div class="menu1">
+                                {%- assign add_menuname3 = block.settings.brand_heading | downcase -%}
+                                {%- if main_menuname == add_menuname3 -%}   
+                                <div class="col-md-3">
+                                  {% if block.settings.img1 != blank%}
+                                  <img src="{{ block.settings.img1 | img_url: 'original' }}" alt="" class="slider_img im">
+                                  {% endif%}
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.brand_menu1 }}</p>
+                                    {% for link in linklists[block.settings.brand_menu1].links %}  
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                                <div class="col-md-3">
+                                  {% if block.settings.img2 != blank%}
+                                  <img src="{{ block.settings.img2 | img_url: 'original' }}" alt="" class="slider_img im">
+                                  {% endif%}
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.brand_menu2 }}</p>
+                                    {% for link in linklists[block.settings.brand_menu2].links %}  
+                                    <li class="mega-menu-li">  
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                                <div class="col-md-6">
+                                  {% if block.settings.brand_imges != blank%}
+                                  <img src="{{ block.settings.brand_imges | img_url: 'original' }}" alt="" class="slider_img im">
+                                  {% endif%}
+                                </div>
+                                {%- endif -%}
+                              </div>
+                              {% when 'single_menu' %}
+                              <div class="menu1" style="display:block; left: 33%; width: 20%;">
+                                {%- assign add_single = block.settings.single_heading | downcase -%}
+                                {%- if main_menuname == add_single -%} 
+                                <div class="col-md-12">                     
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.single_menu }}</p>
+                                    {% for link in linklists[block.settings.single_menu].links %}  
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                      <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+
+                                {%- endif-%}
+                              </div>
+                              
+                              {% when 'duble_menu' %}
+                              <div class="menu1" style="display:block; left: 33%; width: 34%;">
+                                {%- assign add_single = block.settings.duble_heading | downcase -%}
+                                {%- if main_menuname == add_single -%} 
+                                <div class="col-md-6">                     
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.dubleheading_menu }}</p>
+                                    {% for link in linklists[block.settings.dubleheading_menu].links %}  
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                      <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                                   <div class="col-md-6">                     
+                                  <ul class="mega-menu-ul">
+                                    <p>{{ block.settings.dubleheading_menu1 }}</p>
+                                    {% for link in linklists[block.settings.dubleheading_menu1].links %}  
+                                    <li class="mega-menu-li">
+                                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                      <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                                <div class="col-md-12">
+                                  {% if block.settings.duble_menu_img != blank%}
+                                  <img src="{{ block.settings.duble_menu_img | img_url: 'original' }}" alt="" class="slider_img">
+                                  {% endif%}
+                                </div>
+                                {%- endif-%}
+                              </div>
+                              {% endcase %}
+                              {%- endfor -%}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                <div class="seeting-tab">
+                  <h5 class="seeting-heading">seeting</h5> 
+                  <div class="seeting-div togl">
+                    <div class="s-div" style="margin-top:25px;">
+                      {% include 'gtranslate' %}  
+                    </div>
+                    <div class="s-div" style="margin-top:25px;"> 
+                      {% include 'currency-picker' %} 
+                    </div>
+                  </div>
+                </div>
+                <div class="account-tab">
+                  <h5 class="account-heading">account</h5> 
+                  <div class="account-div">
+                    <div   style="margin-top:25px;">
+                      {% if section.settings.show_account %}
+                      <span class="icon-he" style="display:block;">
+                        <a href="#"><p class="account"><i class="fa fa-user user-icon"></i>Create an Account</p></a></span>
+                      {% endif%} 
+
+                    </div>
+                    <div style="margin-top:25px;"> 
+                      {% if section.settings.show_signup %}
+                      <span class="icon-he" style="display:block;">
+                        <a href="#"><p class="sign"><i class="fa fa-sign-in user-icon"></i>Sign In
+                          <i class="fa fa-angle-down"></i></p></a></span>        
+                      {% endif%} 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+        </div>
+        <div class="col-md-4 hide-s" id="">   
+          <select id="select" style="color: gray;font-size: 12px; height: 42px;">              
+            <div>
+              <nav>
+                <ul>
+                  {% for link in linklists[section.settings.show_collection_menu].links %}                
+                  <option>
+                    <li>
+                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                      <ul>
+                        {% for childlink in link.links %}
+                        {% if childlink.links != blank %}
+                        <li>
+                          <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  </option>
+                  {% endfor %}
+                </ul>
+              </nav>
+            </div>              
+          </select>
+              {% include 'search-form'%}
+<!--           <form action="/search" method="get" role="search">
+            <label for="Search" class="label-hidden">
+              {{ 'general.search.placeholder' | t }}
+            </label>
+            <div class="search-feild">
+             
+              <i class="fa fa-search search-icon" id="search-i"></i>
+              <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+              <input type="search"
+                     name="q"
+                     id="Search" class="input-search"
+                     value="{{ search.terms | escape }}"
+                     placeholder="Search entire store here...">
+            </div>
+
+          </form> -->
+          <div class="fixedheader-icon" id="icondivcart" style="display:none;">
+            <span class="fixed-icon-cart cartdrower3open">
+              <span class="fixeditem-count">{{ cart.item_count }}</span>
+              <i class="fa fa-shopping-cart"></i>
+            </span>   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Header",
+"settings": [
+{
+"type": "image_picker",
+"id": "logo",
+"label": "Logo image"
+},
+{
+"type": "range",
+"id": "logo_max_width",
+"min": 50,
+"max": 450,
+"step": 10,
+"unit": "px",
+"label": "Custom logo width",
+"default": 250
+},
+{
+"type": "link_list",
+"id": "main_linklist",
+"label": "Menu",
+"default": "main-menu"
+},
+{
+"type": "checkbox",
+"id": "show",
+"label": "Show Announcement"
+},
+{
+"type": "checkbox",
+"id": "show_account",
+"label": "Show Account"
+},
+{
+"type": "checkbox",
+"id": "show_signup",
+"label": "Show signup"
+},
+{
+"type": "link_list",
+"id": "show_collection_menu",
+"label": "Show collection menu"
+}
+],
+"blocks": [
+{
+"type": "icon",
+"name": "add lookbook megamenu",
+"settings": [
+{
+"type": "text",
+"id": "menu_name",
+"label": "Main Manu Name"
+},
+{
+"type": "image_picker",
+"id": "look_book1",
+"label": "look book img1"
+},
+{
+"type": "link_list",
+"id": "mega_menu",
+"label": "add menu1"
+},
+{
+"type": "image_picker",
+"id": "look_book2",
+"label": "look book img2"
+},
+{
+"type": "link_list",
+"id": "mega_menu2",
+"label": "add menu2"
+},
+{
+"type": "image_picker",
+"id": "look_book3",
+"label": "look book img3"
+},
+{
+"type": "link_list",
+"id": "mega_menu3",
+"label": "add menu3"
+},
+{
+"type": "image_picker",
+"id": "mega_menuimg",
+"label": "add img"
+}
+]
+},
+{
+"type": "main-menu",
+"name": "add mainmenu",
+"settings": [
+{
+"type": "text",
+"id": "menu_main",
+"label": "Main Manu Name"
+},
+{
+"type": "link_list",
+"id": "main_menu1",
+"label": "add menu1"
+},
+{
+"type": "link_list",
+"id": "main_menu2",
+"label": "add menu2"
+},
+{
+"type": "link_list",
+"id": "main_menu3",
+"label": "add menu3"
+},
+{
+"type": "image_picker",
+"id": "main_menuimg",
+"label": "add img"
+}
+]
+},
+{
+"type": "menu",
+"name": "add brands",
+"settings": [
+{
+"type": "text",
+"id": "brand_heading",
+"label": "heading"
+},
+{
+"type": "image_picker",
+"id": "img1",
+"label": "brand img1"
+},
+{
+"type": "link_list",
+"id": "brand_menu1",
+"label": "brand list1"
+},
+{
+"type": "image_picker",
+"id": "img2",
+"label": "brand-img2"
+},
+{
+"type": "link_list",
+"id": "brand_menu2",
+"label": "brand list2"
+},
+{
+"type": "image_picker",
+"id": "brand_imges",
+"label": "all brand imges"
+}
+]
+},
+{
+"type": "single_menu",
+"name": "add single menu",
+"settings": [
+{
+"type": "text",
+"id": "single_heading",
+"label": "heading"
+},
+{
+"type": "link_list",
+"id": "single_menu",
+"label": "single menu"
+}
+]
+},
+{
+"type": "duble_menu",
+"name": "add duble menu",
+"settings": [
+{
+"type": "text",
+"id": "duble_heading",
+"label": "heading"
+},
+{
+"type": "link_list",
+"id": "dubleheading_menu",
+"label": "duble menu"
+},
+{
+"type": "link_list",
+"id": "dubleheading_menu1",
+"label": "duble menu1"
+},
+{
+"type": "image_picker",
+"id": "duble_menu_img",
+"label": "img"
+}
+]
+}
+]
+}
+{% endschema %}
+<script>
+ $(document).ready(function(){ 
+  $(".parant_nav li").hover(function(){
+    $(this).find(".second-menu-div").css("display","block");
+  }, function(){
+    $(this).find(".second-menu-div").css("display","none");
+  });
+  $(".second-menu-div li").hover(function(){
+    $(this).find(".child3-div").css("display","block");
+  }, function(){
+    $(this).find(".child3-div").css("display","none");
+  });
+
+  $(".parant_nav li").hover(function(){
+    $(this).find(".menu1").css("display","block");
+  }, function(){
+    $(this).find(".menu1").css("display","none");
+  });
+  $(".menu1").hover(function(){
+    $(this).css("display","block");
+  }, function(){
+    $(this).css("display","none");
+  });
+ });
+</script>
+<script>
+
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+  if ( $(window).width() > 767 ) {
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+    document.getElementById('icondivcart').style.display = 'block';
+    document.getElementById('select').style.display = 'none';
+    document.getElementById('fixedhedpopuop').style.top = '48px';
+    
+  } else {
+    header.classList.remove("sticky");
+    document.getElementById('select').style.display = 'block';
+     document.getElementById('icondivcart').style.display = 'none';
+     document.getElementById('fixedhedpopuop').style.top = '109px';
+  }
+}
+  }
+ 
+</script>
+<style>
+  .sticky {
+    position: fixed;
+    top: 0;
+    /*   padding-top: 32px; */
+    width: 100%;
+    z-index:999;
+  }
+  .responsiv-search{
+    top: 18px;
+    right: 69px;
+  }
+</style>

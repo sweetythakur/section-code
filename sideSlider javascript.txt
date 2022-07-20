@@ -1,0 +1,45 @@
+$(document).ready(function(){
+$('.responsive').slick({
+  dots: true,
+  speed: 300,
+  centerMode: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
+
+
+
+
+{% if block.settings.video_mp4 != blank %}
+             
+             <video class="secondvideo" width="100%" controls>
+  <source src="{{ block.settings.video_mp4 }}" type="video/mp4">
+</video>

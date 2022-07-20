@@ -1,0 +1,67 @@
+<script>
+    var allProducts;
+    var filteredProducts = [];
+    var activeFilter = [];
+    $(document).ready(function(){
+        var url = '{{collection.url}}/products.json?limit=250';
+        const res = getProducts(url);
+    });
+
+    function getProducts(url){
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(res){ 
+
+                allProducts = res.products;
+                filterProducts(allProducts);
+            },
+            error: function(status){
+                 alert(status);
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+<script>
+  
+  $('.swati').load('https://tester2149.myshopify.com/blogs/news/tittle3 #title-0');
+
+$.ajax({
+    type: "GET",
+    url: "products/9ct-gold-oval-sapphire-and-diamond-cluster-ring-7pts-d6708n.json",
+  datatype:"json",
+    success: function(data) {
+      console.log('data',data);
+    
+    }
+
+
+
+});
+ 
+
+  </script>
+  
+  
+  
+<script>
+$('.swati').load('https://tester2149.myshopify.com/collections/tittle');
+ $(document).ready(function(){
+$.ajax({
+url:	"/collections/frontpage",
+type:	'GET',
+datatype:'html',
+})
+.done(function(data) {
+var html = $(data).find(".grid--view-items").html();
+$(".grid--view-items").html(html);
+console.log(html);
+});
+ });
+</script>
